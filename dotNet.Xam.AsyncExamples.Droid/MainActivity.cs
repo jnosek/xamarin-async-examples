@@ -6,26 +6,25 @@ using AndroidX.AppCompat.App;
 using AndroidX.AppCompat.Widget;
 using AndroidX.Core.View;
 using AndroidX.DrawerLayout.Widget;
-using Google.Android.Material.FloatingActionButton;
+using AndroidX.Fragment.App;
+using dotNet.Xam.AsyncExamples.Droid.Fragments;
 using Google.Android.Material.Navigation;
 using Google.Android.Material.Snackbar;
 using System;
 
 namespace dotNet.Xam.AsyncExamples.Droid
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
-    public class MainActivity : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
+    [Activity(Label = "@string/app_title", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+    public class MainActivity : FragmentActivity, NavigationView.IOnNavigationItemSelectedListener
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            SetContentView(Resource.Layout.activity_main);
+            SetContentView(Resource.Layout.drawer_main);
+            
             Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
-
-            FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
-            fab.Click += FabOnClick;
+            //SetSupportActionBar(toolbar);
 
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, Resource.String.navigation_drawer_open, Resource.String.navigation_drawer_close);
@@ -34,6 +33,19 @@ namespace dotNet.Xam.AsyncExamples.Droid
 
             NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             navigationView.SetNavigationItemSelectedListener(this);
+
+            // Create a new fragment and a transaction.
+            var fragmentTx =  SupportFragmentManager.BeginTransaction();
+            var startFragment = BasicExampleFragment.NewInstance();
+
+            // Replace the fragment that is in the View fragment_container (if applicable).
+            fragmentTx.Replace(Resource.Id.fragment_container, startFragment);
+
+            // Add the transaction to the back stack.
+            fragmentTx.AddToBackStack(null);
+
+            // Commit the transaction.
+            fragmentTx.Commit();
         }
 
         public override void OnBackPressed()

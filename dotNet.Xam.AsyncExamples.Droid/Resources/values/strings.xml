@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">dotNet.Xam.AsyncExamples.Droid</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_settings">Settings</string>
+  <string name="app_name">Xamarin Async Examples</string>
+  <string name="app_title">Async Examples</string>
+  <string name="navigation_drawer_open">Open navigation drawer</string>
+  <string name="navigation_drawer_close">Close navigation drawer</string>
+  <string name="action_settings">Settings</string>
 </resources>
